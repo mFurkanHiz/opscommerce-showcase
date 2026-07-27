@@ -114,9 +114,36 @@ That is all — the domain has no infrastructure dependencies.
 **Frontend:** Next.js 15, React 19, Tailwind CSS
 **Infra:** Docker Compose, GitHub Actions CI/CD, nginx reverse proxy, Cloudflare
 
+## Screenshots
+
+The platform ships with an EN/TR language switcher; the operational screens below are captured in Turkish — the platform's primary market language.
+
+| | |
+|---|---|
+| **Order detail with the operational timeline** — payment history shows a failed attempt followed by a successful retry; the timeline tells the whole story | ![Order timeline](assets/order-timeline.png) |
+| **Warehouse dashboard ("My Work")** — each role gets its own metrics and work queue | ![Warehouse my-work](assets/my-work-warehouse.png) |
+| **Inventory with ATP** — on-hand / reserved / available-to-promise per warehouse, with stock intake and TTL reservations | ![Inventory](assets/inventory.png) |
+| **Warehouse transfers** — stock-aware creation (source ATP, destination on-hand), dispatch and completion with real stock effects | ![Transfers](assets/transfers.png) |
+| **Courier's own screen** — assigned deliveries advanced step by step; note the role-filtered navigation | ![Courier](assets/courier.png) |
+| **Customer account** — order history with live status, payments and self-service return requests | ![Account](assets/account-orders.png) |
+
+More: [storefront](assets/storefront.png) · [login with demo roles](assets/login.png) · [management dashboard](assets/dashboard.png) · [RMA management](assets/rma.png)
+
 ## Live demo
 
-A hosted demo with one-click role logins (admin, warehouse, courier, customer…) is available — the link and screenshots are being added. Each role sees its own panel; the storefront supports guest checkout with simulated payments.
+**https://opscommerce-demo.rapidconfigs.com** — an isolated demo environment with simulated payments and a **nightly data reset** (everything you create is wiped early morning UTC, so feel free to explore).
+
+| Role | E-mail | What to try |
+|---|---|---|
+| Company admin | `company@opscommerce.local` | catalog, deposit toggle on a product, dashboard |
+| Operations | `operations@opscommerce.local` | orders, status flow, RMA approval, courier assignment |
+| Warehouse | `warehouse@opscommerce.local` | inventory, stock intake, reservations, transfers |
+| Courier | `courier@opscommerce.local` | "My Deliveries", step-by-step delivery |
+| Customer | `customer@opscommerce.local` | storefront, account area, order history, return request |
+
+Password for all demo roles: `OpsCommerce123!` *(intentionally public — this is a sandbox).* The storefront also supports guest checkout with no login at all.
+
+A suggested 3-minute tour: put the deposit-enabled product in the cart → check out with **"pay deposit"** → pay the balance from the success screen → log in as operations and open the order → read its timeline.
 
 ## Limitations & roadmap
 
