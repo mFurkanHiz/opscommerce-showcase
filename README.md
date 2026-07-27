@@ -7,7 +7,7 @@
 ![Next.js 15](https://img.shields.io/badge/Next.js-15-black)
 ![Tests](https://img.shields.io/badge/domain%20tests-31%20passing-brightgreen)
 
-> **About this repository.** OpsCommerce is a private, full-stack project. This public repository is a **curated showcase**: it contains the complete domain core (which builds and its tests run in CI — see the badge), the architecture and data-model documentation, and commented highlights from the service layer. The full application (API, frontend, infrastructure) is private. See [LICENSE](LICENSE).
+> **About this repository.** OpsCommerce is a private, full-stack project. This public repository is a **curated showcase**: it contains the complete domain core — it compiles, and its tests run in CI on every push (see the badge) — plus the architecture and data-model documentation and commented highlights from the service layer. The full application (API, frontend, infrastructure) is private. See [LICENSE](LICENSE).
 
 ---
 
@@ -80,7 +80,7 @@ More detail: [architecture](docs/architecture.md) · [domain model & state machi
 
 - **State machines everywhere.** Six entities have explicit transition maps. An order that was never paid cannot be shipped; a courier cannot complete a delivery without arriving first. Invalid jumps are `422`s, not silent data corruption.
 - **Concurrency without locks.** Stock reservation is a single conditional `UPDATE … WHERE onHand − reserved >= qty`. If two checkouts race for the last unit, exactly one wins. No distributed locks, no retry loops. ([details](code-highlights/atomic-reservation.md))
-- **Security as a process.** The codebase went through an internal security review (authorization scoping, server-authoritative pricing, brute-force protection, tenant isolation). Findings, fixes and how each fix was verified live are documented in [docs/security.md](docs/security.md).
+- **Security as a process.** The codebase went through an internal security review (authorization scoping, server-authoritative pricing, brute-force protection, tenant isolation). The findings, the fixes, and the live verification of each fix are documented in [docs/security.md](docs/security.md).
 - **Honest testing.** 85+ unit tests in the full project; the 31 domain tests run here in CI. The [testing doc](docs/testing.md) also explains what unit tests *cannot* cover in this design (raw-SQL concurrency paths) and how those are verified instead.
 - **CI/CD.** Every push builds and tests before anything deploys; the pipeline in the private repo also ships to a staging VPS via GitHub Actions. This repo runs the same build+test gate — the badge above is live. ([details](docs/ci-cd.md))
 
@@ -131,7 +131,7 @@ More: [storefront](assets/storefront.png) · [login with demo roles](assets/logi
 
 ## Live demo
 
-**https://opscommerce-demo.rapidconfigs.com** — an isolated demo environment with simulated payments and a **nightly data reset** (everything you create is wiped early morning UTC, so feel free to explore).
+**https://opscommerce-demo.rapidconfigs.com** — an isolated demo environment with simulated payments and a **nightly data reset** (everything you create is wiped early each morning, UTC — so feel free to explore).
 
 | Role | E-mail | What to try |
 |---|---|---|

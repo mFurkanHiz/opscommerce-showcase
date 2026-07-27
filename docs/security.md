@@ -14,7 +14,7 @@ The earliest and most important rule: **the client is never trusted with money.*
 ## Authorization: two gates on every path
 
 1. **Role gate** — controllers declare which roles may call an endpoint (warehouse staff cannot approve refunds; customers cannot see the operations panel).
-2. **Tenant gate** — services verify the specific row belongs to the caller's company (or, for customers, to the caller personally). A foreign row responds as *not found*, so its existence is not even confirmed.
+2. **Tenant gate** — services verify the specific row belongs to the caller's company (or, for customers, to the caller personally). A foreign row behaves as if it does not exist (*not found*), so its existence is not even confirmed.
 
 The tenant gate is uniform across orders, customers, inventory, transfers, production, RMA, fulfillment, payments and the audit trail. This was verified live with two tenants: company A's staff receive `404` for company B's stock and `422` when trying to produce into company B's warehouse.
 
@@ -37,7 +37,7 @@ Race conditions can be abused, so the two money/stock-critical races are closed 
 
 ## Platform hardening
 
-- **JWT**: the signing key must come from the environment outside development, with a minimum length — the application refuses to start otherwise (fail-fast beats a silently weak default).
+- **JWT**: outside of local development, the signing key must be supplied through environment configuration and meet a minimum length — otherwise the application refuses to start (fail-fast beats a silently weak default).
 - **Rate limiting**: fixed-window limits on the auth endpoints (brute-force) and per-IP limits on the anonymous checkout/payment endpoints (abuse).
 - **Error responses**: internal exception details are logged but never returned; clients get generic messages plus stable, machine-readable error codes.
 - **Secrets**: never committed. Configuration files with real values live only on the servers and in CI secrets; the repository carries placeholders. Deployment syncs exclude them.

@@ -14,7 +14,7 @@ Business rules live in a dependency-free domain layer, so the most valuable test
 
 ## Why some things are *not* unit-tested
 
-The stock reservation and the payment confirmation use single conditional `UPDATE` statements (see [code highlights](../code-highlights/atomic-reservation.md)). EF's in-memory provider does not execute raw update semantics, and mocking them would test the mock, not the behavior. Pretending otherwise would be false confidence.
+The stock reservation and the payment confirmation use single conditional `UPDATE` statements (see [code highlights](../code-highlights/atomic-reservation.md)). EF's in-memory provider does not execute raw UPDATE statements, and mocking them would test the mock, not the behavior. Pretending otherwise would be false confidence.
 
 Instead, these paths are exercised against the deployed environment after each release:
 

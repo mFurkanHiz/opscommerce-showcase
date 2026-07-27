@@ -14,8 +14,10 @@ stateDiagram-v2
     PendingPayment --> PaymentFailed : payment attempt failed
     PaymentFailed --> Paid : retry
     PaymentFailed --> PartiallyPaid : retry (deposit)
+    PaymentFailed --> PendingPayment
     PaymentFailed --> Cancelled
     PartiallyPaid --> Paid : balance paid
+    PartiallyPaid --> RefundRequested
     Paid --> Processing
     Processing --> Shipped
     Shipped --> Delivered

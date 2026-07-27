@@ -60,7 +60,7 @@ The transfer UI is stock-aware: choosing a source warehouse lists only the produ
 
 Anyone who can prove they own the order can open a request: a registered customer from the account area, or a guest with the order's guest token.
 
-Validations happen at request time — the quantity cannot exceed what was ordered for that product, the restock warehouse must belong to the order's company. On approval + completion, the effects apply in one transaction:
+Validations happen at request time — the quantity cannot exceed what was ordered for that product, and the restock warehouse must belong to the order's company. On approval + completion, the effects apply in one transaction:
 
 - **Return / exchange** → returned units go back into warehouse stock.
 - **Return** → the order moves through the refund flow (`RefundRequested → RefundCompleted`), and the refund amount cannot exceed what was actually paid.
