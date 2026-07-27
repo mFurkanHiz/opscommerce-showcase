@@ -2,6 +2,7 @@
 
 **An operations-first commerce platform** — not just a storefront, but the full engine behind it: order lifecycle, deposit-based payments, warehouse inventory with overselling protection, courier delivery, returns (RMA), production orders and a complete operational audit trail.
 
+[![Live demo](https://img.shields.io/badge/live%20demo-opscommerce--demo-2563eb)](https://opscommerce-demo.rapidconfigs.com)
 ![CI](https://github.com/mFurkanHiz/opscommerce-showcase/actions/workflows/ci.yml/badge.svg)
 ![.NET 10](https://img.shields.io/badge/.NET-10-512BD4)
 ![Next.js 15](https://img.shields.io/badge/Next.js-15-black)
@@ -116,7 +117,7 @@ That is all — the domain has no infrastructure dependencies.
 
 ## Screenshots
 
-The platform ships with an EN/TR language switcher; the operational screens below are captured in Turkish — the platform's primary market language.
+All screenshots are taken from the live demo. The platform ships with an EN/TR language switcher: the customer-facing surface is fully bilingual, while the internal operations screens below are captured in Turkish — the primary language of the teams they are built for.
 
 | | |
 |---|---|
@@ -133,17 +134,34 @@ More: [storefront](assets/storefront.png) · [login with demo roles](assets/logi
 
 **https://opscommerce-demo.rapidconfigs.com** — an isolated demo environment with simulated payments and a **nightly data reset** (everything you create is wiped early each morning, UTC — so feel free to explore).
 
-| Role | E-mail | What to try |
-|---|---|---|
-| Company admin | `company@opscommerce.local` | catalog, deposit toggle on a product, dashboard |
-| Operations | `operations@opscommerce.local` | orders, status flow, RMA approval, courier assignment |
-| Warehouse | `warehouse@opscommerce.local` | inventory, stock intake, reservations, transfers |
-| Courier | `courier@opscommerce.local` | "My Deliveries", step-by-step delivery |
-| Customer | `customer@opscommerce.local` | storefront, account area, order history, return request |
+No credentials to copy: the sign-in page has a **"Sign in with a demo role"** panel — pick a role and it logs you in.
 
-Password for all demo roles: `OpsCommerce123!` *(intentionally public — this is a sandbox).* The storefront also supports guest checkout with no login at all.
+| Role | What to try |
+|---|---|
+| Company admin | catalog, deposit toggle on a product, dashboard |
+| Operations | orders, status flow, RMA approval, courier assignment |
+| Warehouse | inventory, stock intake, reservations, transfers |
+| Courier | "My Deliveries", step-by-step delivery |
+| Customer | storefront, account area, order history, return request |
 
-A suggested 3-minute tour: put the deposit-enabled product in the cart → check out with **"pay deposit"** → pay the balance from the success screen → log in as operations and open the order → read its timeline.
+The storefront also supports guest checkout with no login at all, and the **Sign Up** tab creates a private account if you would rather not share the demo ones.
+
+A suggested 3-minute tour: put the deposit-enabled product in the cart → check out with **"pay deposit"** → pay the balance from the success screen → sign in as operations and open the order → read its timeline.
+
+**How the demo is protected.** A public sandbox invites accidents, so the demo build runs with an extra guard layer that the private deployments do not need:
+
+- **PlatformAdmin is not available** — the tenant/licence administration surface stays closed, and the sign-in page marks the role as locked instead of hiding it.
+- **Shared accounts are read-only** — their profiles and passwords cannot be changed, so no visitor can lock another one out.
+- **Deletes are disabled** outside a small allow-list (your own addresses, payment methods, cart items), and administrative areas (companies, licences, currencies, site settings) reject writes.
+- **Per-IP write quota** on top of the normal auth and checkout rate limits.
+- **No file or image upload exists anywhere in the platform** — there is no storage abuse vector to protect in the first place.
+- **Nightly reset** wipes the database and re-seeds it, so a broken state lasts hours, not forever.
+
+## The full platform
+
+This repository is the public, reviewable slice. The complete platform — every screen, the full application and infrastructure layers, production catalogue and CRM management — runs at **https://opscommerce.test.rapidconfigs.com** and covers considerably more than the demo above.
+
+That codebase is private. If you are evaluating me and want to read the real source or walk through the system with me, write to **mertfurkan.hiz@gmail.com** and I will arrange access or a live walkthrough.
 
 ## Limitations & roadmap
 
